@@ -8,6 +8,7 @@ import { BASE_URL } from "./../utils/constants";
 const Login = () => {
 const [emailId,setEmailId]=useState("riya@gmail.com");
 const [password,setPassword]=useState("Riyaa@123");
+const [error,setError]=useState(""); 
 const dispatch=useDispatch();
 const navigate=useNavigate();
 const handleLogin=async()=>{
@@ -21,7 +22,8 @@ const handleLogin=async()=>{
  return navigate("/");
 }
 catch(err){
-  console.error(err);
+  setError(err?.response?.data || "Something went wrong");
+  console.error(err?.response?.message || "Something went wrong");
 }
 }
 
@@ -51,6 +53,7 @@ catch(err){
                 placeholder="Enter your password" 
               />
             </label>
+            <p className="text-red-500">{error}</p>
             <div className="flex justify-center mt-6">
               <button type="button" className="btn btn-primary w-full max-w-xs text-white bg-gradient-to-r from-teal-400 to-blue-500 hover:from-teal-500 hover:to-blue-600" onClick={handleLogin}>
                 Login
