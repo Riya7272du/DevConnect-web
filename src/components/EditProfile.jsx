@@ -9,9 +9,9 @@ const EditProfile = ({ user }) => {
     const [firstName, setFirstName] = useState(user.firstName);
     const [lastName, setLastName] = useState(user.lastName);
     const [photoUrl, setPhotoUrl] = useState(user.photoUrl);
-    const [age, setAge] = useState(user.age);
-    const [gender, setGender] = useState(user.gender);
-    const [about, setAbout] = useState(user.about);
+    const [age, setAge] = useState(user.age|| "");
+    const [gender, setGender] = useState(user.gender||"");
+    const [about, setAbout] = useState(user.about||"");
     const [error, setError] = useState(""); 
     const [showToast,setShowtoast]=useState(false);
     const dispatch = useDispatch();
@@ -44,7 +44,7 @@ const EditProfile = ({ user }) => {
 
     return (
         <>
-        <div className="flex justify-center items-start min-h-screen bg-gradient-to-r from-purple-700 via-purple-500 to-blue-500 py-20 space-x-8">
+        <div className="flex justify-center items-start min-h-screen bg-gradient-to-r from-purple-700 via-purple-500 to-blue-500 py-20 space-x-8 px-10">
             {/* Edit Profile Card */}
             <div className="card bg-base-100 w-96 shadow-2xl rounded-lg">
                 <div className="card-body p-8">
