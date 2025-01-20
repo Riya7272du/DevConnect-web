@@ -11,8 +11,8 @@ const Requests = () => {
     const reviewRequest = async (status, _id) => {
         try {
             const res = await axios.post(
-                `${BASE_URL}/request/review/${status}/${_id}`, 
-                {}, 
+                `${BASE_URL}/request/review/${status}/${_id}`,
+                {},
                 { withCredentials: true }
             );
             // Update requests in the Redux store with the latest data
@@ -45,7 +45,12 @@ const Requests = () => {
         <div className="text-center my-10 pb-20">
             <h1 className="font-bold text-white text-3xl mb-5">Requests</h1>
             {requests.map((request) => {
-                const { _id, firstName, lastName, photoUrl, skills, about, age, gender } = request.fromUserId;
+                // Check if fromUserId is not null
+                const { _id, firstName, lastName, photoUrl, about, age, gender } = request.fromUserId || {};
+
+                // If fromUserId is null, skip rendering that request
+                if (!_id) return null;
+
                 return (
                     <div
                         key={_id}
@@ -64,14 +69,14 @@ const Requests = () => {
                             <p>{about}</p>
                         </div>
                         <div>
-                            <button 
-                                className="btn btn-primary my-2" 
+                            <button
+                                className="btn btn-primary my-2"
                                 onClick={() => reviewRequest("rejected", request._id)}
                             >
                                 Reject
                             </button>
-                            <button 
-                                className="btn btn-secondary my-2" 
+                            <button
+                                className="btn btn-secondary my-2"
                                 onClick={() => reviewRequest("accepted", request._id)}
                             >
                                 Accept

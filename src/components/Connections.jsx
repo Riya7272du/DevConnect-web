@@ -26,13 +26,13 @@ const Connections = () => {
 
     if (!connections) return null;
 
-    if (connections.length === 0) return <h1 className="flex justify-center my-10" >No Connections Found!</h1>;
+    if (connections.length === 0) return <h1 className="flex justify-center my-10">No Connections Found!</h1>;
 
     return (
-        <div className="text-center my-10 pb-20"> {/* Added padding-bottom */}
+        <div className="text-center my-10 pb-20">
             <h1 className="font-bold text-white text-3xl mb-5">Connections</h1>
-            {connections.map((connection) => {
-                const { _id,firstName, lastName, photoUrl, skills, about, age, gender } = connection;
+            {connections.filter(connection => connection !== null).map((connection) => {
+                const { _id, firstName, lastName, photoUrl, skills, about, age, gender } = connection;
                 return (
                     <div
                         key={_id}
@@ -50,7 +50,6 @@ const Connections = () => {
                             {age && gender && <p>{age + ", " + gender}</p>}
                             <p>{about}</p>
                         </div>
-                        
                     </div>
                 );
             })}
