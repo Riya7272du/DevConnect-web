@@ -65,8 +65,8 @@ const EditProfile = ({ user }) => {
                             { label: "First Name", value: firstName, setter: setFirstName },
                             { label: "Last Name", value: lastName, setter: setLastName },
                             { label: "Photo URL", value: photoUrl, setter: setPhotoUrl },
-                            { label: "Age", value: age, setter: setAge, type: "number" },
-                            { label: "Gender", value: gender, setter: setGender },
+                            // { label: "Age", value: age, setter: setAge, type: "number" },
+                            // { label: "Gender", value: gender, setter: setGender },
                             { label: "About", value: about, setter: setAbout, textarea: true },
                         ].map(({ label, value, setter, type = "text", textarea }, index) => (
                             <label key={index} className="block mb-3">
