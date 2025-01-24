@@ -15,88 +15,88 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const resetFields = () => {
+    setEmailId("");
+    setPassword("");
+    setFirstName("");
+    setLastName("");
+    setError("");
+  };
+
   const handleLogin = async () => {
     try {
       const res = await axios.post(
-        BASE_URL + "/login",
+        `${BASE_URL}/login`,
         { emailId, password },
         { withCredentials: true }
       );
       dispatch(addUser(res.data));
-      return navigate("/");
+      resetFields();
+      navigate("/");
     } catch (err) {
-      setError(err?.response?.data || "Something went wrong");
-      console.error(err?.response?.message || "Something went wrong");
+      setError(err?.response?.data?.message || "Login failed! Try again.");
     }
   };
 
   const handleSignUp = async () => {
     try {
       const res = await axios.post(
-        BASE_URL + "/signup",
+        `${BASE_URL}/signup`,
         { firstName, lastName, emailId, password },
         { withCredentials: true }
       );
       dispatch(addUser(res.data.data));
-      return navigate("/");
+      resetFields();
+      navigate("/");
     } catch (err) {
-      setError(err?.response?.data || "Something went wrong");
-      console.error(err?.response?.message || "Something went wrong");
+      setError(err?.response?.data?.message || "Sign-up failed! Try again.");
     }
   };
 
   return (
-    <div className="relative flex flex-col sm:flex-row min-h-screen bg-gray-900">
+    <div className="flex flex-col sm:flex-row min-h-screen bg-gray-900">
       {/* Branding Section */}
-      <div className="w-full sm:w-1/2 flex flex-col justify-center items-center bg-gradient-to-b from-gray-800 via-gray-900 to-black text-white p-6 sm:p-12">
-        <h1 className="text-3xl sm:text-5xl font-bold mb-4 text-center">
-          Developers Connect
-        </h1>
-        <p className="text-sm sm:text-lg text-gray-400 mb-6 sm:mb-12 text-center px-4 sm:px-10">
+      <div className="sm:w-1/2 flex flex-col justify-center items-center bg-gradient-to-b from-gray-800 via-gray-900 to-black text-white p-4 sm:p-12">
+        <h1 className="text-4xl font-bold mb-6 text-center">Developers Connect</h1>
+        <p className="text-lg text-gray-400 mb-6 text-center px-6">
           Join the community of developers to connect, collaborate, and code.
         </p>
       </div>
 
-      {/* Login Section */}
+      {/* Form Section */}
       <div className="w-full sm:w-1/2 flex justify-center items-center p-4">
-        <div className="card bg-gray-300 w-full sm:w-96 shadow-lg rounded-lg p-6">
+        <div className="card bg-gray-300 w-full max-w-sm shadow-lg rounded-lg p-6">
           <div className="card-body">
-            <h2 className="text-center text-xl sm:text-2xl font-semibold mb-4 text-gray-800">
+            <h2 className="text-center text-xl font-semibold mb-4 text-gray-800">
               {isLoginForm ? "Login" : "Sign Up"}
             </h2>
             <form>
               {!isLoginForm && (
                 <>
-                  <label className="form-control w-full my-4">
-                    <span className="text-sm sm:text-base font-medium text-gray-600">
-                      First Name
-                    </span>
+                  <label className="form-control w-full my-3">
+                    <span className="font-medium text-gray-600">First Name</span>
                     <input
                       type="text"
                       value={firstName}
                       className="input input-bordered w-full mt-2 bg-gray-100 text-gray-900"
                       onChange={(e) => setFirstName(e.target.value)}
-                      placeholder="Enter your First Name"
+                      placeholder="Enter your first name"
                     />
                   </label>
-                  <label className="form-control w-full my-4">
-                    <span className="text-sm sm:text-base font-medium text-gray-600">
-                      Last Name
-                    </span>
+                  <label className="form-control w-full my-3">
+                    <span className="font-medium text-gray-600">Last Name</span>
                     <input
                       type="text"
                       value={lastName}
                       className="input input-bordered w-full mt-2 bg-gray-100 text-gray-900"
                       onChange={(e) => setLastName(e.target.value)}
-                      placeholder="Enter your Last Name"
+                      placeholder="Enter your last name"
                     />
                   </label>
                 </>
               )}
-              <label className="form-control w-full my-4">
-                <span className="text-sm sm:text-base font-medium text-gray-600">
-                  Email ID
-                </span>
+              <label className="form-control w-full my-3">
+                <span className="font-medium text-gray-600">Email ID</span>
                 <input
                   type="email"
                   value={emailId}
@@ -105,10 +105,8 @@ const Login = () => {
                   placeholder="Enter your email"
                 />
               </label>
-              <label className="form-control w-full my-4">
-                <span className="text-sm sm:text-base font-medium text-gray-600">
-                  Password
-                </span>
+              <label className="form-control w-full my-3">
+                <span className="font-medium text-gray-600">Password</span>
                 <input
                   type="password"
                   value={password}
@@ -117,21 +115,24 @@ const Login = () => {
                   placeholder="Enter your password"
                 />
               </label>
-              <p className="text-red-500 text-sm mt-2">{error}</p>
-              <div className="flex justify-center mt-6">
+              {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+              <div className="flex justify-center mt-4">
                 <button
                   type="button"
-                  className="btn btn-primary bg-gradient-to-r from-gray-700 via-gray-900 to-black text-white w-full"
+                  className="btn bg-gradient-to-r from-gray-700 via-gray-900 to-black text-white w-full"
                   onClick={isLoginForm ? handleLogin : handleSignUp}
                 >
                   {isLoginForm ? "Login" : "Sign Up"}
                 </button>
               </div>
             </form>
-            <div className="text-center mt-6">
+            <div className="flex justify-center mt-4">
               <p
-                className="text-sm text-gray-600 cursor-pointer hover:text-primary"
-                onClick={() => setIsLoginForm((value) => !value)}
+                className="text-sm text-gray-600 cursor-pointer hover:text-blue-600"
+                onClick={() => {
+                  setIsLoginForm((prev) => !prev);
+                  resetFields();
+                }}
               >
                 {isLoginForm
                   ? "New to Developers Connect? Sign Up here"
