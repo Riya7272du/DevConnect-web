@@ -54,12 +54,12 @@ const EditProfile = ({ user }) => {
     };
 
     return (
-        <div className="min-h-screen flex flex-col items-center bg-gradient-to-r from-purple-700 via-purple-500 to-blue-500 py-8 px-4 sm:px-8">
+        <div className="min-h-screen flex flex-col items-center bg-gradient-to-r from-gray-800 via-gray-900 to-black-500 py-6 px-3 sm:px-6">
             {/* Responsive Layout */}
-            <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-2 gap-2">
                 {/* Edit Profile Card */}
-                <div className="card bg-base-100 shadow-lg rounded-lg p-6 sm:p-8">
-                    <h2 className="text-2xl sm:text-3xl font-bold text-center text-primary mb-6">Edit Profile</h2>
+                <div className="card bg-base-100 shadow-md rounded-lg p-4 sm:p-6">
+                    <h2 className="text-xl sm:text-2xl font-bold text-center text-primary mb-4">Edit Profile</h2>
                     <form>
                         {[
                             { label: "First Name", value: firstName, setter: setFirstName },
@@ -69,8 +69,8 @@ const EditProfile = ({ user }) => {
                             { label: "Gender", value: gender, setter: setGender },
                             { label: "About", value: about, setter: setAbout, textarea: true },
                         ].map(({ label, value, setter, type = "text", textarea }, index) => (
-                            <label key={index} className="block mb-4">
-                                <span className="block text-sm sm:text-base font-semibold text-gray-700">{label}:</span>
+                            <label key={index} className="block mb-3">
+                                <span className="block text-sm font-semibold text-gray-700">{label}:</span>
                                 {textarea ? (
                                     <textarea
                                         value={value}
@@ -88,12 +88,12 @@ const EditProfile = ({ user }) => {
                             </label>
                         ))}
                         {/* Error Message */}
-                        {error && <p className="text-red-500 text-center">{error}</p>}
+                        {error && <p className="text-red-500 text-center text-sm">{error}</p>}
                         {/* Save Button */}
-                        <div className="flex justify-center mt-6">
+                        <div className="flex justify-center mt-4">
                             <button
                                 type="button"
-                                className="btn btn-primary w-full sm:w-auto px-6 py-2 text-white bg-gradient-to-r from-teal-400 to-blue-500 hover:from-teal-500 hover:to-blue-600"
+                                className="btn btn-primary bg-gradient-to-r from-gray-700 via-gray-900 to-black text-white px-4 py-2 w-full sm:w-auto"
                                 onClick={saveProfile}
                             >
                                 Save Profile
@@ -104,7 +104,7 @@ const EditProfile = ({ user }) => {
 
                 {/* User Card (Dynamically Hidden) */}
                 {showUserCard && (
-                    <div className="card bg-base-100 shadow-lg rounded-lg p-6 sm:p-8 flex items-center justify-center">
+                    <div className="card bg-base-100 shadow-md rounded-lg p-4 sm:p-6 flex items-center justify-center">
                         <UserCard user={{ firstName, lastName, photoUrl, age, gender, about }} showActions={false} />
                     </div>
                 )}
