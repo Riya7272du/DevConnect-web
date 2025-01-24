@@ -9,8 +9,8 @@ const EditProfile = ({ user }) => {
     const [firstName, setFirstName] = useState(user.firstName);
     const [lastName, setLastName] = useState(user.lastName);
     const [photoUrl, setPhotoUrl] = useState(user.photoUrl);
-    const [age, setAge] = useState(user.age || "");
-    const [gender, setGender] = useState(user.gender || "");
+    // const [age, setAge] = useState(user.age || "");
+    // const [gender, setGender] = useState(user.gender || "");
     const [about, setAbout] = useState(user.about || "");
     const [error, setError] = useState("");
     const [showToast, setShowToast] = useState(false);
@@ -34,7 +34,7 @@ const EditProfile = ({ user }) => {
         try {
             const res = await axios.patch(
                 BASE_URL + "/profile/edit",
-                { firstName, lastName, photoUrl, age, gender, about },
+                { firstName, lastName, photoUrl, about },
                 { withCredentials: true }
             );
             dispatch(addUser(res?.data?.data));
@@ -106,7 +106,7 @@ const EditProfile = ({ user }) => {
                 {/* User Card (Dynamically Hidden) */}
                 {showUserCard && (
                     <div className="card bg-base-100 shadow-md rounded-lg p-4 sm:p-6 flex items-center justify-center">
-                        <UserCard user={{ firstName, lastName, photoUrl, age, gender, about }} showActions={false} />
+                        <UserCard user={{ firstName, lastName, photoUrl, about }} showActions={false} />
                     </div>
                 )}
             </div>
