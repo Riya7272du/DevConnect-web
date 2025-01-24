@@ -58,9 +58,9 @@ const EditProfile = ({ user }) => {
             {/* Responsive Layout */}
             <div className="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-2 gap-2">
                 {/* Edit Profile Card */}
-                <div className="card bg-base-100 shadow-md rounded-lg p-4 sm:p-6">
+                <div className="card bg-base-100 shadow-md rounded-lg p-4 sm:p-6 flex flex-col min-h-full">
                     <h2 className="text-xl sm:text-2xl font-bold text-center text-primary mb-4">Edit Profile</h2>
-                    <form>
+                    <form className="flex flex-col flex-grow overflow-auto">
                         {[
                             { label: "First Name", value: firstName, setter: setFirstName },
                             { label: "Last Name", value: lastName, setter: setLastName },
@@ -89,17 +89,18 @@ const EditProfile = ({ user }) => {
                         ))}
                         {/* Error Message */}
                         {error && <p className="text-red-500 text-center text-sm">{error}</p>}
-                        {/* Save Button */}
-                        <div className="flex justify-center mt-4">
-                            <button
-                                type="button"
-                                className="btn btn-primary bg-gradient-to-r from-gray-700 via-gray-900 to-black text-white px-4 py-2 w-full sm:w-auto"
-                                onClick={saveProfile}
-                            >
-                                Save Profile
-                            </button>
-                        </div>
                     </form>
+
+                    {/* Save Button */}
+                    <div className="mt-auto flex justify-center">
+                        <button
+                            type="button"
+                            className="btn btn-primary bg-gradient-to-r from-gray-700 via-gray-900 to-black text-white w-full sm:w-auto"
+                            onClick={saveProfile}
+                        >
+                            Save Profile
+                        </button>
+                    </div>
                 </div>
 
                 {/* User Card (Dynamically Hidden) */}
@@ -119,6 +120,8 @@ const EditProfile = ({ user }) => {
                 </div>
             )}
         </div>
+
+
     );
 };
 
